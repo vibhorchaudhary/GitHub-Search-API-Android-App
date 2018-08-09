@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Github Search</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="no_results_found">No Results Found!</string>
+    <string name="search_results_will_appear_here">Your Search Results will appear here</string>
+    <string name="home">Home</string>
+    <string name="press_back_to_exit">Press back again to exit</string>
+</resources>

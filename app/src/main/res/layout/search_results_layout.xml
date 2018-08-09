@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/github" />
+
+            <RelativeLayout
+                android:id="@+id/userDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/avatar">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="My name is Vibhor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:padding="2dp"
+                    android:text="This is my repository name" />
+
+                <ImageView
+                    android:id="@+id/watchersImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/fullName"
+                    android:padding="5dp"
+                    android:src="@drawable/watch" />
+
+                <TextView
+                    android:id="@+id/watchers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fullName"
+                    android:layout_toEndOf="@+id/watchersImage"
+                    android:padding="5dp"
+                    android:text="Watchers" />
+
+                <ImageView
+                    android:id="@+id/forkImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/fullName"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/watchers"
+                    android:padding="5dp"
+                    android:src="@drawable/fork" />
+
+                <TextView
+                    android:id="@+id/fork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fullName"
+                    android:layout_toEndOf="@+id/forkImage"
+                    android:padding="5dp"
+                    android:text="Fork" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/extraInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userDetails"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@+id/avatar">
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
