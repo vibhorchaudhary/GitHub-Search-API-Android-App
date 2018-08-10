@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:text="My name is Vibhor"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -49,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name"
                     android:padding="2dp"
-                    android:text="This is my repository name" />
+                    android:text="This is my repository name"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     android:id="@+id/watchersImage"
@@ -66,7 +68,8 @@
                     android:layout_below="@+id/fullName"
                     android:layout_toEndOf="@+id/watchersImage"
                     android:padding="5dp"
-                    android:text="Watchers" />
+                    android:text="Watchers"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     android:id="@+id/forkImage"
@@ -85,7 +88,8 @@
                     android:layout_below="@+id/fullName"
                     android:layout_toEndOf="@+id/forkImage"
                     android:padding="5dp"
-                    android:text="Fork" />
+                    android:text="Fork"
+                    android:textColor="@color/black" />
 
             </RelativeLayout>
 

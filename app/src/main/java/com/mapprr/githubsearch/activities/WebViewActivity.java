@@ -69,7 +69,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     private void setProgressBar() {
         if (pDialog == null) {
-            pDialog = new ProgressDialog(this);
+            pDialog = new ProgressDialog(this, R.style.Theme_ProgressDialog);
         }
         if (!pDialog.isShowing() && !this.isFinishing()) {
             pDialog.setMessage("Loading Information! Please wait...");

@@ -98,6 +98,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -284,7 +285,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
     private void setProgressBar() {
         if (pDialog == null) {
-            pDialog = new ProgressDialog(this);
+            pDialog = new ProgressDialog(this, R.style.Theme_ProgressDialog);
         }
         if (!pDialog.isShowing() && !this.isFinishing()) {
             pDialog.setMessage("Fetching Info! Please wait...");

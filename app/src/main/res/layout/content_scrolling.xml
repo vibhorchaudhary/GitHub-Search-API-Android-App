@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Repository Link :"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -41,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/project"
                     android:padding="5dp"
-                    android:text="https://github.com/vibhu0009" />
+                    android:text="https://github.com/vibhu0009"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/desc"
@@ -51,6 +53,7 @@
                     android:layout_marginTop="25dp"
                     android:padding="5dp"
                     android:text="Project Description :"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -60,7 +63,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/desc"
                     android:padding="5dp"
-                    android:text="This is my project description!" />
+                    android:text="This is my project description!"
+                    android:textColor="@color/black" />
 
             </RelativeLayout>
 
@@ -75,6 +79,7 @@
             android:layout_marginTop="5dp"
             android:padding="5dp"
             android:text="Contributors :"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 

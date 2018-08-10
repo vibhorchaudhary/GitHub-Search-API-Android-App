@@ -156,6 +156,10 @@ public class ScrollingActivity extends AppCompatActivity {
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                                 recyclerView.setAdapter(contributorsAdapter);
                                 hideProgressBar();
+                                if (contributorModels.size() == 0) {
+                                    contributorsTv.setVisibility(View.GONE);
+                                    Toast.makeText(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG).show();
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -216,7 +220,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void setProgressBar() {
         if (pDialog == null) {
-            pDialog = new ProgressDialog(this);
+            pDialog = new ProgressDialog(this, R.style.Theme_ProgressDialog);
         }
         if (!pDialog.isShowing() && !this.isFinishing()) {
             pDialog.setMessage("Loading! Please wait...");
