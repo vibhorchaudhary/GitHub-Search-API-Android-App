@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.constants.ServerConstants;
 import com.mapprr.githubsearch.models.ProfileModel;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.skyfishjy.library.RippleBackground;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +64,11 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     @BindView(R.id.noResultsFound)
     RelativeLayout noResultsFoundLayout;
 
+    @BindView(R.id.content)
+    RippleBackground rippleBackground;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
     private ProgressDialog pDialog;
 
     @Override
@@ -77,10 +84,19 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     protected void onResume() {
         super.onResume();
         setSupportActionBar(toolbar);
-        toolbarTitleTextView.setText("Search on GitHub");
+        toolbarTitleTextView.setText(getString(R.string.app_name));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
         }
+
+        rippleBackground.startRippleAnimation();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("GITHUB", "Clicked");
+            }
+        });
 
     }
 
@@ -92,7 +108,13 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
-        searchView.showSearch(true);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchView.showSearch(true);
+            }
+        }, 500);
         searchView.setOnQueryTextListener(this);
 
         return true;

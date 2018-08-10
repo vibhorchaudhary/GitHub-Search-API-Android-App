@@ -7,59 +7,91 @@
 
     <include layout="@layout/toolbar_search" />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         <RelativeLayout
-            android:id="@+id/noResultsFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/noResultFoundImage"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="80dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/github" />
+            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <RelativeLayout
+                android:id="@+id/noResultsFound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/noResultFoundImage"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="80dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/github" />
 
 
-            <TextView
-                android:id="@+id/primaryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/noResultFoundImage"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/no_results_found"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/primaryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/noResultFoundImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/no_results_found"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/secondaryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/primaryText"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/search_results_will_appear_here"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/secondaryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/primaryText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/search_results_will_appear_here"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+
+        <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="visible"
+            app:rb_color="@color/black"
+            app:rb_duration="2500"
+            app:rb_radius="25dp"
+            app:rb_rippleAmount="2"
+            app:rb_scale="1.7">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add" />
+
+        </com.skyfishjy.library.RippleBackground>
+
+    </FrameLayout>
 
 </LinearLayout>
