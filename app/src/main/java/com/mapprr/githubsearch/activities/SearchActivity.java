@@ -99,12 +99,10 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
     }
 
-
     private void reInit() {
         setProgressBar();
         searchAdapter = new SearchAdapter(SearchActivity.this, repoArrayList, true);
         recyclerView.setAdapter(searchAdapter);
-        recyclerView.smoothScrollToPosition(0);
         hideProgressBar();
     }
 
