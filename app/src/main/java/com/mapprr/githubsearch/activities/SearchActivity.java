@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,7 +102,8 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
     private void reInit() {
         setProgressBar();
-        searchAdapter = new SearchAdapter(SearchActivity.this, repoArrayList, true);
+        ArrayList<ProfileModel> arrayList = getFinalListOfRepos();
+        searchAdapter = new SearchAdapter(SearchActivity.this, arrayList, true);
         recyclerView.setAdapter(searchAdapter);
         hideProgressBar();
     }
@@ -267,7 +269,10 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                                     JSONArray repos = (JSONArray) jsonObject.get("items");
                                     if (repos.length() != 0) {
                                         repoArrayList = getProfileDetails(repos);
-                                        searchAdapter = new SearchAdapter(SearchActivity.this, repoArrayList, true);
+
+                                        ArrayList<ProfileModel> arrayList = getFinalListOfRepos();
+
+                                        searchAdapter = new SearchAdapter(SearchActivity.this, arrayList, true);
 
                                         GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
                                         recyclerView.setLayoutManager(mLayoutManager);
@@ -444,6 +449,13 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         sortByWatcherLayout.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_add);
         fabExpanded = true;
+    }
+
+    private ArrayList<ProfileModel> getFinalListOfRepos() {
+        List<ProfileModel> listOfProfiles = repoArrayList.subList(0, 10);
+        ArrayList<ProfileModel> newArrayListOfProfiles = new ArrayList<>(listOfProfiles.size());
+        newArrayListOfProfiles.addAll(listOfProfiles);
+        return newArrayListOfProfiles;
     }
 
 }
