@@ -27,6 +27,7 @@ import com.mapprr.githubsearch.adapters.ContributorsAdapter;
 import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.models.ContributorModel;
 import com.mapprr.githubsearch.models.ProfileModel;
+import com.mapprr.githubsearch.utils.ConnectionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,6 +118,12 @@ public class ScrollingActivity extends AppCompatActivity {
 
 
     private void getContributorsListFromServer() {
+
+        if (!ConnectionUtils.isConnected()) {
+            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         setProgressBar();
         ServiceFactory serviceFactory = new ServiceFactory(profileModel.contributorsUrl.replace("contributors", ""), this);
         serviceFactory.getBaseService()

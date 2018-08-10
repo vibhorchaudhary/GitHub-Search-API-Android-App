@@ -29,6 +29,7 @@ import com.mapprr.githubsearch.adapters.SearchAdapter;
 import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.constants.ServerConstants;
 import com.mapprr.githubsearch.models.ProfileModel;
+import com.mapprr.githubsearch.utils.ConnectionUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.skyfishjy.library.RippleBackground;
 
@@ -211,7 +212,6 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     @Override
     public boolean onQueryTextSubmit(String query) {
         searchView.hideKeyboard(getWindow().getDecorView().getRootView());
-        setProgressBar();
         getRepos(query);
         return true;
     }
@@ -242,6 +242,14 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
 
     private void getRepos(String queryText) {
+
+        if (!ConnectionUtils.isConnected()) {
+            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        setProgressBar();
+
         ServiceFactory serviceFactory = new ServiceFactory(ServerConstants.BASE_URL, this);
         serviceFactory.getBaseService()
                 .getRepositories(queryText.trim())

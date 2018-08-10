@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,6 +25,7 @@ import com.mapprr.githubsearch.adapters.SearchAdapter;
 import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.models.ContributorModel;
 import com.mapprr.githubsearch.models.ProfileModel;
+import com.mapprr.githubsearch.utils.ConnectionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,6 +85,12 @@ public class RepositoryActivity extends AppCompatActivity {
     }
 
     private void getRepositories() {
+
+        if (!ConnectionUtils.isConnected()) {
+            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         setProgressBar();
         recyclerView.setVisibility(View.GONE);
         ServiceFactory serviceFactory = new ServiceFactory(contributorModel.profileUrl.replace("repos", ""), this);
