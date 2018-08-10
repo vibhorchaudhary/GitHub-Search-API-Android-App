@@ -89,12 +89,10 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
             getSupportActionBar().setTitle("");
         }
 
-        rippleBackground.startRippleAnimation();
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("GITHUB", "Clicked");
+                Toast.makeText(SearchActivity.this, "Need to add filters on click on this button!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -200,11 +198,13 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                                         recyclerView.setAdapter(searchAdapter);
                                         noResultsFoundLayout.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
+                                        rippleBackground.startRippleAnimation();
                                         hideProgressBar();
                                     } else {
                                         noResultsFoundLayout.setVisibility(View.VISIBLE);
                                         recyclerView.setVisibility(View.GONE);
                                         hideProgressBar();
+                                        rippleBackground.stopRippleAnimation();
                                         Toast.makeText(SearchActivity.this, "No Results Found", Toast.LENGTH_LONG).show();
                                     }
                                 }

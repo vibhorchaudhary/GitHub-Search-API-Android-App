@@ -17,7 +17,7 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="12dp"
             android:elevation="3dp"
             card_view:cardCornerRadius="3dp">
 
@@ -92,7 +92,7 @@
                 android:id="@+id/contributorsCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="12dp"
                 android:elevation="3dp"
                 android:visibility="visible"
                 card_view:cardCornerRadius="3dp">
