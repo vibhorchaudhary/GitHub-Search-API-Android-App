@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,10 +67,23 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
 
     @BindView(R.id.content)
     RippleBackground rippleBackground;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
 
     private ProgressDialog pDialog;
+
+
+    private boolean fabExpanded = false;
+
+    @BindView(R.id.fabSetting)
+    FloatingActionButton fab;
+
+    @BindView(R.id.layoutFabReset)
+    LinearLayout resetLayout;
+    @BindView(R.id.layoutFabSortByFork)
+    LinearLayout sortByForkLayout;
+    @BindView(R.id.layoutFabSortByName)
+    LinearLayout sortByNameLayout;
+    @BindView(R.id.layoutFabSortByWatcher)
+    LinearLayout sortByWatcherLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +92,62 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         ButterKnife.bind(this);
         noResultsFoundLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+
+        closeSubMenusFab();
+
+        setOnClickListeners();
+
+    }
+
+
+    private void reInit() {
+        setProgressBar();
+        searchAdapter = new SearchAdapter(SearchActivity.this, repoArrayList, true);
+        recyclerView.setAdapter(searchAdapter);
+        recyclerView.smoothScrollToPosition(0);
+        hideProgressBar();
+    }
+
+    private void setOnClickListeners() {
+        resetLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortByWatchers();
+                reInit();
+                closeSubMenusFab();
+                Toast.makeText(SearchActivity.this, "Done Resetting", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sortByWatcherLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortByWatchers();
+                reInit();
+                closeSubMenusFab();
+                Toast.makeText(SearchActivity.this, "Sorted by watchers", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sortByNameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortByName();
+                reInit();
+                closeSubMenusFab();
+                Toast.makeText(SearchActivity.this, "Sorted by name", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sortByForkLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortByForks();
+                reInit();
+                closeSubMenusFab();
+                Toast.makeText(SearchActivity.this, "Sorted by forks", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -89,10 +159,19 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
             getSupportActionBar().setTitle("");
         }
 
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SearchActivity.this, "Need to add filters on click on this button!", Toast.LENGTH_SHORT).show();
+                if (rippleBackground.isRippleAnimationRunning()) {
+                    if (fabExpanded) {
+                        closeSubMenusFab();
+                    } else {
+                        openSubMenusFab();
+                    }
+                } else {
+                    Toast.makeText(SearchActivity.this, "You are not allowed to use sort functionality without pulling the data", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -191,11 +270,13 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                                     if (repos.length() != 0) {
                                         repoArrayList = getProfileDetails(repos);
                                         searchAdapter = new SearchAdapter(SearchActivity.this, repoArrayList, true);
+
                                         GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
                                         recyclerView.setLayoutManager(mLayoutManager);
                                         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
                                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                                         recyclerView.setAdapter(searchAdapter);
+
                                         noResultsFoundLayout.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
                                         rippleBackground.startRippleAnimation();
@@ -262,6 +343,33 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         return profiles;
     }
 
+    private void sortByWatchers() {
+        Collections.sort(repoArrayList, new Comparator<ProfileModel>() {
+            @Override
+            public int compare(ProfileModel profileModel1, ProfileModel profileModel2) {
+                return profileModel2.watchers.compareTo(profileModel1.watchers);
+            }
+        });
+    }
+
+    private void sortByForks() {
+        Collections.sort(repoArrayList, new Comparator<ProfileModel>() {
+            @Override
+            public int compare(ProfileModel profileModel1, ProfileModel profileModel2) {
+                return profileModel2.forks.compareTo(profileModel1.forks);
+            }
+        });
+    }
+
+    private void sortByName() {
+        Collections.sort(repoArrayList, new Comparator<ProfileModel>() {
+            @Override
+            public int compare(ProfileModel profileModel1, ProfileModel profileModel2) {
+                return profileModel1.name.compareTo(profileModel2.name);
+            }
+        });
+    }
+
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -321,6 +429,23 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         if (pDialog != null && pDialog.isShowing()) {
             pDialog.cancel();
         }
+    }
+
+    private void closeSubMenusFab() {
+        resetLayout.setVisibility(View.INVISIBLE);
+        sortByForkLayout.setVisibility(View.INVISIBLE);
+        sortByNameLayout.setVisibility(View.INVISIBLE);
+        sortByWatcherLayout.setVisibility(View.INVISIBLE);
+        fabExpanded = false;
+    }
+
+    private void openSubMenusFab() {
+        resetLayout.setVisibility(View.VISIBLE);
+        sortByForkLayout.setVisibility(View.VISIBLE);
+        sortByNameLayout.setVisibility(View.VISIBLE);
+        sortByWatcherLayout.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_add);
+        fabExpanded = true;
     }
 
 }

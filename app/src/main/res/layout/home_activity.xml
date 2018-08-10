@@ -66,31 +66,8 @@
 
         </RelativeLayout>
 
+        <include layout="@layout/fab_sub_menu_layout" />
 
-        <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="visible"
-            app:rb_color="@color/black"
-            app:rb_duration="2500"
-            app:rb_radius="25dp"
-            app:rb_rippleAmount="2"
-            app:rb_scale="1.7">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_add" />
-
-        </com.skyfishjy.library.RippleBackground>
 
     </FrameLayout>
 

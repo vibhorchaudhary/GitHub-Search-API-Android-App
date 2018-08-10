@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/home/vibhor/IDE/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/vibhor/IDE/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_cancel_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,9 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="search_back" />
+                                      <entry key="outputName" value="ic_cancel_white" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="24292e" />
+                                      <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>
