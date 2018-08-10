@@ -26,6 +26,7 @@ import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.models.ContributorModel;
 import com.mapprr.githubsearch.models.ProfileModel;
 import com.mapprr.githubsearch.utils.ConnectionUtils;
+import com.mapprr.githubsearch.utils.SingleToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +88,7 @@ public class RepositoryActivity extends AppCompatActivity {
     private void getRepositories() {
 
         if (!ConnectionUtils.isConnected()) {
-            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            SingleToast.showToast(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT);
             return;
         }
 

@@ -28,6 +28,7 @@ import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.models.ContributorModel;
 import com.mapprr.githubsearch.models.ProfileModel;
 import com.mapprr.githubsearch.utils.ConnectionUtils;
+import com.mapprr.githubsearch.utils.SingleToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,7 +121,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private void getContributorsListFromServer() {
 
         if (!ConnectionUtils.isConnected()) {
-            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            SingleToast.showToast(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT);
             return;
         }
 
@@ -165,14 +166,14 @@ public class ScrollingActivity extends AppCompatActivity {
                                 hideProgressBar();
                                 if (contributorModels.size() == 0) {
                                     contributorsTv.setVisibility(View.GONE);
-                                    Toast.makeText(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG).show();
+                                    SingleToast.showToast(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG);
                                 }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG).show();
+                            SingleToast.showToast(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG);
                             hideProgressBar();
                             contributorsTv.setVisibility(View.GONE);
                         }

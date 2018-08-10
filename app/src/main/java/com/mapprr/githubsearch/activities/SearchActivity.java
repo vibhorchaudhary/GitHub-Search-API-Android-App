@@ -30,6 +30,7 @@ import com.mapprr.githubsearch.client.ServiceFactory;
 import com.mapprr.githubsearch.constants.ServerConstants;
 import com.mapprr.githubsearch.models.ProfileModel;
 import com.mapprr.githubsearch.utils.ConnectionUtils;
+import com.mapprr.githubsearch.utils.SingleToast;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.skyfishjy.library.RippleBackground;
 
@@ -116,7 +117,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                 sortByWatchers();
                 reInit();
                 closeSubMenusFab();
-                Toast.makeText(SearchActivity.this, "Done Resetting", Toast.LENGTH_SHORT).show();
+                SingleToast.showToast(SearchActivity.this, "Done Resetting", Toast.LENGTH_SHORT);
             }
         });
 
@@ -126,7 +127,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                 sortByWatchers();
                 reInit();
                 closeSubMenusFab();
-                Toast.makeText(SearchActivity.this, "Sorted by watchers", Toast.LENGTH_SHORT).show();
+                SingleToast.showToast(SearchActivity.this, "Sorted by watchers", Toast.LENGTH_SHORT);
             }
         });
 
@@ -136,7 +137,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                 sortByName();
                 reInit();
                 closeSubMenusFab();
-                Toast.makeText(SearchActivity.this, "Sorted by name", Toast.LENGTH_SHORT).show();
+                SingleToast.showToast(SearchActivity.this, "Sorted by name", Toast.LENGTH_SHORT);
             }
         });
 
@@ -146,7 +147,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                 sortByForks();
                 reInit();
                 closeSubMenusFab();
-                Toast.makeText(SearchActivity.this, "Sorted by forks", Toast.LENGTH_SHORT).show();
+                SingleToast.showToast(SearchActivity.this, "Sorted by forks", Toast.LENGTH_SHORT);
             }
         });
     }
@@ -171,7 +172,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                         openSubMenusFab();
                     }
                 } else {
-                    Toast.makeText(SearchActivity.this, "You are not allowed to use sort functionality without pulling the data", Toast.LENGTH_LONG).show();
+                    SingleToast.showToast(SearchActivity.this, "You are not allowed to use sort functionality without pulling the data", Toast.LENGTH_LONG);
                 }
             }
         });
@@ -230,7 +231,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                 finish();
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, getString(R.string.press_back_to_exit) + " " + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+            SingleToast.showToast(this, getString(R.string.press_back_to_exit) + " " + getString(R.string.app_name), Toast.LENGTH_SHORT);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -244,7 +245,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     private void getRepos(String queryText) {
 
         if (!ConnectionUtils.isConnected()) {
-            Toast.makeText(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT).show();
+            SingleToast.showToast(this, "No Internet Connection. Please try again later!", Toast.LENGTH_SHORT);
             return;
         }
 
@@ -297,7 +298,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                                         recyclerView.setVisibility(View.GONE);
                                         hideProgressBar();
                                         rippleBackground.stopRippleAnimation();
-                                        Toast.makeText(SearchActivity.this, "No Results Found", Toast.LENGTH_LONG).show();
+                                        SingleToast.showToast(SearchActivity.this, "No Results Found", Toast.LENGTH_LONG);
                                     }
                                 }
                             } catch (JSONException e) {
