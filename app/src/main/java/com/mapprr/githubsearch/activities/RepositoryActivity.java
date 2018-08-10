@@ -1,5 +1,6 @@
 package com.mapprr.githubsearch.activities;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -14,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -51,8 +51,8 @@ public class RepositoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.userImage)
     CircleImageView userImage;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+
+    private ProgressDialog pDialog;
 
     private ContributorModel contributorModel;
     private ArrayList<ProfileModel> profileModels;
@@ -83,7 +83,7 @@ public class RepositoryActivity extends AppCompatActivity {
     }
 
     private void getRepositories() {
-        progressBar.setVisibility(View.VISIBLE);
+        setProgressBar();
         recyclerView.setVisibility(View.GONE);
         ServiceFactory serviceFactory = new ServiceFactory(contributorModel.profileUrl.replace("repos", ""), this);
         serviceFactory.getBaseService()
@@ -115,11 +115,11 @@ public class RepositoryActivity extends AppCompatActivity {
                                 recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                                 recyclerView.setAdapter(searchAdapter);
-                                progressBar.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
+                                hideProgressBar();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                progressBar.setVisibility(View.GONE);
+                                hideProgressBar();
                             }
                         }
                     }
@@ -192,6 +192,24 @@ public class RepositoryActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private void setProgressBar() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(this);
+        }
+        if (!pDialog.isShowing() && !this.isFinishing()) {
+            pDialog.setMessage("Loading! Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    }
+
+    private void hideProgressBar() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.cancel();
+        }
     }
 
 

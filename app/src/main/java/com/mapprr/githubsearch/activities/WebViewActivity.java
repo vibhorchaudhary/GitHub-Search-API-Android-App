@@ -1,15 +1,14 @@
 package com.mapprr.githubsearch.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapprr.githubsearch.R;
@@ -27,8 +26,7 @@ public class WebViewActivity extends AppCompatActivity {
     @BindView(R.id.webView)
     WebView webView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    private ProgressDialog pDialog;
 
     private String url, name;
 
@@ -41,7 +39,7 @@ public class WebViewActivity extends AppCompatActivity {
         url = getIntent().getStringExtra("url");
         name = getIntent().getStringExtra("name");
 
-        progressBar.setVisibility(View.VISIBLE);
+        setProgressBar();
 
         WebSettings webSettings = webView.getSettings();
 
@@ -51,7 +49,7 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
-                    progressBar.setVisibility(View.GONE);
+                    hideProgressBar();
                 }
             }
         });
@@ -66,6 +64,24 @@ public class WebViewActivity extends AppCompatActivity {
         toolBarTitle.setText(name);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
+        }
+    }
+
+    private void setProgressBar() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(this);
+        }
+        if (!pDialog.isShowing() && !this.isFinishing()) {
+            pDialog.setMessage("Loading Information! Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    }
+
+    private void hideProgressBar() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.cancel();
         }
     }
 }

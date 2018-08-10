@@ -1,5 +1,6 @@
 package com.mapprr.githubsearch.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,8 +60,7 @@ public class ScrollingActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    private ProgressDialog pDialog;
 
     @BindView(R.id.contributors)
     TextView contributorsTv;
@@ -118,7 +117,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
 
     private void getContributorsListFromServer() {
-        progressBar.setVisibility(View.VISIBLE);
+        setProgressBar();
         ServiceFactory serviceFactory = new ServiceFactory(profileModel.contributorsUrl.replace("contributors", ""), this);
         serviceFactory.getBaseService()
                 .getContributorDetails()
@@ -156,14 +155,14 @@ public class ScrollingActivity extends AppCompatActivity {
                                 recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                                 recyclerView.setAdapter(contributorsAdapter);
-                                progressBar.setVisibility(View.GONE);
+                                hideProgressBar();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } else {
                             Toast.makeText(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
+                            hideProgressBar();
                             contributorsTv.setVisibility(View.GONE);
                         }
 
@@ -213,6 +212,24 @@ public class ScrollingActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private void setProgressBar() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(this);
+        }
+        if (!pDialog.isShowing() && !this.isFinishing()) {
+            pDialog.setMessage("Loading! Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    }
+
+    private void hideProgressBar() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.cancel();
+        }
     }
 
 

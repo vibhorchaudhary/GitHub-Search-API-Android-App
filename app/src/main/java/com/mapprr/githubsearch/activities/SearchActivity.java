@@ -1,5 +1,6 @@
 package com.mapprr.githubsearch.activities;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,8 +61,8 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     RecyclerView recyclerView;
     @BindView(R.id.noResultsFound)
     RelativeLayout noResultsFoundLayout;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     @Override
     public boolean onQueryTextSubmit(String query) {
         searchView.hideKeyboard(getWindow().getDecorView().getRootView());
-        progressBar.setVisibility(View.VISIBLE);
+        setProgressBar();
         getRepos(query);
         return true;
     }
@@ -176,12 +176,12 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                                         recyclerView.setAdapter(searchAdapter);
                                         noResultsFoundLayout.setVisibility(View.GONE);
-                                        progressBar.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
+                                        hideProgressBar();
                                     } else {
                                         noResultsFoundLayout.setVisibility(View.VISIBLE);
                                         recyclerView.setVisibility(View.GONE);
-                                        progressBar.setVisibility(View.GONE);
+                                        hideProgressBar();
                                         Toast.makeText(SearchActivity.this, "No Results Found", Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -281,4 +281,23 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    private void setProgressBar() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(this);
+        }
+        if (!pDialog.isShowing() && !this.isFinishing()) {
+            pDialog.setMessage("Fetching Info! Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    }
+
+    private void hideProgressBar() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.cancel();
+        }
+    }
+
 }
