@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/github"
+        app:layout_collapseMode="parallax" />
+
+    <TextView
+        android:id="@+id/contributorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userImage"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Vibhor Chaudhary"
+        android:textStyle="bold" />
+
+</RelativeLayout>

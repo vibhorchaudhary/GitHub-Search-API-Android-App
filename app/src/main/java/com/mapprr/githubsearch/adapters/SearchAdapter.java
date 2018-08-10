@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mapprr.githubsearch.R;
-import com.mapprr.githubsearch.activities.ProjectDetailsActivity;
+import com.mapprr.githubsearch.activities.ScrollingActivity;
 import com.mapprr.githubsearch.models.ProfileModel;
 
 import java.text.DecimalFormat;
@@ -28,17 +28,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     private Context mContext;
     private ArrayList<ProfileModel> profileModels;
+    private boolean shouldDisplayImage;
 
-    public SearchAdapter(Activity context, ArrayList<ProfileModel> profiles) {
+    public SearchAdapter(Activity context, ArrayList<ProfileModel> profiles, boolean shouldDisplayImage) {
         this.mContext = context;
         this.profileModels = profiles;
+        this.shouldDisplayImage = shouldDisplayImage;
     }
 
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View searchResultsView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_results_layout, null);
+        View searchResultsView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_results_layout_grid, null);
         return new MyViewHolder(searchResultsView);
     }
 
@@ -49,10 +51,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         holder.fullName.setText(profileModel.fullName);
         holder.watchers.setText(new DecimalFormat("#").format(profileModel.watchers));
         holder.forks.setText(new DecimalFormat("#").format(profileModel.forks));
-        Glide.with(mContext)
-                .load(profileModel.userImageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.userImage);
+        if (shouldDisplayImage) {
+            Glide.with(mContext)
+                    .load(profileModel.userImageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.userImage);
+        }
     }
 
     @Override
@@ -92,7 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
                         @Override
                         public void run() {
 
-                            Intent activityIntent = new Intent(mContext, ProjectDetailsActivity.class);
+                            Intent activityIntent = new Intent(mContext, ScrollingActivity.class);
                             activityIntent.putExtra("profileModel", profileModels.get(getAdapterPosition()));
                             mContext.startActivity(activityIntent);
 
