@@ -216,7 +216,7 @@
                 android:layout_gravity="bottom|end"
                 android:elevation="0dp"
                 android:padding="10dp"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/filter"
                 app:backgroundTint="@color/colorPrimary"
                 app:elevation="10dp"
                 app:fabSize="normal"

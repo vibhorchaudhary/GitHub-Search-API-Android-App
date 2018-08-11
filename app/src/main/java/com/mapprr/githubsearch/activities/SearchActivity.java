@@ -172,7 +172,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                         openSubMenusFab();
                     }
                 } else {
-                    SingleToast.showToast(SearchActivity.this, "You are not allowed to use sort functionality without pulling the data", Toast.LENGTH_LONG);
+                    SingleToast.showToast(SearchActivity.this, "You are not allowed to use this functionality without pulling the data!!", Toast.LENGTH_LONG);
                 }
             }
         });
