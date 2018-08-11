@@ -226,6 +226,8 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     public void onBackPressed() {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
+        } else if (fabExpanded) {
+            closeSubMenusFab();
         } else {
             if (doubleBackToExitPressedOnce) {
                 finish();
@@ -464,7 +466,6 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         sortByForkLayout.setVisibility(View.VISIBLE);
         sortByNameLayout.setVisibility(View.VISIBLE);
         sortByWatcherLayout.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_add);
         fabExpanded = true;
     }
 
@@ -479,4 +480,11 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (fabExpanded) {
+            closeSubMenusFab();
+        }
+    }
 }
