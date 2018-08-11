@@ -13,6 +13,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
@@ -107,7 +108,9 @@ public class RepositoryActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e("ERROR", e.toString());
+                        hideProgressBar();
+                        SingleToast.showToast(RepositoryActivity.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT);
                     }
 
                     @Override
@@ -126,10 +129,16 @@ public class RepositoryActivity extends AppCompatActivity {
                                 recyclerView.setAdapter(searchAdapter);
                                 recyclerView.setVisibility(View.VISIBLE);
                                 hideProgressBar();
+                                if (profileModels.size() == 0) {
+                                    SingleToast.showToast(RepositoryActivity.this, "No repositories found!", Toast.LENGTH_LONG);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 hideProgressBar();
                             }
+                        } else {
+                            hideProgressBar();
+                            SingleToast.showToast(RepositoryActivity.this, "No repositories found!", Toast.LENGTH_LONG);
                         }
                     }
                 });

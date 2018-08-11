@@ -265,6 +265,8 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                     @Override
                     public void onError(Throwable e) {
                         Log.e("ERROR", e.toString());
+                        hideProgressBar();
+                        SingleToast.showToast(SearchActivity.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT);
                     }
 
                     @Override
@@ -304,6 +306,12 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        } else {
+                            noResultsFoundLayout.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                            hideProgressBar();
+                            rippleBackground.stopRippleAnimation();
+                            SingleToast.showToast(SearchActivity.this, "No Results Found", Toast.LENGTH_LONG);
                         }
                     }
                 });

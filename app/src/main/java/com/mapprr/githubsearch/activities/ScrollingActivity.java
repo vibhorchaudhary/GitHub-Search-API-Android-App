@@ -140,6 +140,8 @@ public class ScrollingActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("ERROR", e.toString());
+                        hideProgressBar();
+                        SingleToast.showToast(ScrollingActivity.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT);
                     }
 
                     @Override
@@ -168,7 +170,6 @@ public class ScrollingActivity extends AppCompatActivity {
                                     contributorsTv.setVisibility(View.GONE);
                                     SingleToast.showToast(ScrollingActivity.this, "No contributors found!", Toast.LENGTH_LONG);
                                 }
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
