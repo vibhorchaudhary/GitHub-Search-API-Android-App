@@ -461,10 +461,14 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchV
     }
 
     private ArrayList<ProfileModel> getFinalListOfRepos() {
-        List<ProfileModel> listOfProfiles = repoArrayList.subList(0, 10);
-        ArrayList<ProfileModel> newArrayListOfProfiles = new ArrayList<>(listOfProfiles.size());
-        newArrayListOfProfiles.addAll(listOfProfiles);
-        return newArrayListOfProfiles;
+        if (repoArrayList.size() > 10) {
+            List<ProfileModel> listOfProfiles = repoArrayList.subList(0, 10);
+            ArrayList<ProfileModel> newArrayListOfProfiles = new ArrayList<>(listOfProfiles.size());
+            newArrayListOfProfiles.addAll(listOfProfiles);
+            return newArrayListOfProfiles;
+        } else {
+            return repoArrayList;
+        }
     }
 
 }
